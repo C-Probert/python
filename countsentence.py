@@ -4,6 +4,7 @@ import sys
 import os.path
 import readfile
 
+delimiter = '.  '
 alphabet =  {'a':1, 'b':2, 'c':3, 'd':4, 'e':5, 'f':6, 'g':7,
              'h':8, 'i':9, 'j':10, 'k':11, 'l':12, 'm':13, 'n':14,
              'o':15, 'p':16, 'q':17, 'r':18, 's':19, 't':20, 
@@ -13,10 +14,14 @@ filename = 'thefile.txt'
 if len(sys.argv) > 1:
     filename = sys.argv[1]
 
+if len(sys.argv) > 2:
+    delimiter = sys.argv[2].strip('"');
+
+
 
 file_str = readfile.read_file(filename)
-lines = file_str.split('. ');
-
+lines = file_str.split(delimiter);
+print lines
 highest = 0,''
 #break each line up into sentences
 for line in lines:
@@ -40,7 +45,7 @@ for line in lines:
             
     #print 'sline count={0}'.format(line_amount)
     if line_amount > highest[0] :
-        highest = line_amount, line
+        highest = line_amount, line.strip('\n') #for formatting when writing to stdout, remove newline
 
 print 'Highest sentence: {0} - {1}'.format(highest[1],highest[0])
             
